@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Req, Res } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { Product } from './products.model';
 import { ProductInputDto } from './products.input.dto';
+import { Request, Response } from 'express';
 
 @Controller('products')
 export class ProductsController {
@@ -13,8 +14,13 @@ export class ProductsController {
   }
 
   @Get('')
-  async getProducts(): Promise<Product[]> {
-    return this.productsService.getProducts();
+  async getProducts(@Req() _req?: Request, @Res() _res?: Response) {
+    const result = await this.productsService.getProducts();
+    console.log(
+      '🚀 ~ file: products.controller.ts:19 ~ ProductsController ~ getProducts ~ result:',
+      result,
+    );
+    return _res.status(200).json(result);
   }
 
   @Post('')
@@ -22,4 +28,3 @@ export class ProductsController {
     return this.productsService.createProduct(product);
   }
 }
-

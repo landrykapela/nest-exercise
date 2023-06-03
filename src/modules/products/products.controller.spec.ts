@@ -24,7 +24,7 @@ describe('ProductsController', () => {
     });
     it('should return an array of products', async () => {
       const products = await productController.getProducts();
-      expect(products.length).toEqual(2);
+      expect(products.data.length).toEqual(2);
     });
     it('should increment the length of the products array by 1', async () => {
       const product: ProductInputDto = {

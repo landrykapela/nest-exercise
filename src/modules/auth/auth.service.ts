@@ -55,10 +55,7 @@ export class AuthService {
             createdAt: user.createdAt,
           };
           console.log('jwt :', process.env.JWT_SECRET);
-          const accessToken = sign(
-            loginAuthDto.password,
-            process.env.JWT_SECRET,
-          );
+          const accessToken = sign(loginAuthDto.email, process.env.JWT_SECRET);
           console.log(
             '🚀 ~ file: auth.service.ts:50 ~ AuthService ~ signIn ~ accessToken:',
             accessToken,

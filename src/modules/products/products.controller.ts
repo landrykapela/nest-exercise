@@ -1,8 +1,18 @@
-import { Body, Controller, Get, Param, Post, Req, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Req,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { Product } from './products.model';
 import { ProductInputDto } from './products.input.dto';
 import { Request, Response } from 'express';
+import { AuthGuard } from '../auth/auth.guard';
 
 @Controller('products')
 export class ProductsController {
@@ -14,6 +24,7 @@ export class ProductsController {
   }
 
   @Get('')
+  @UseGuards(new AuthGuard())
   async getProducts(@Req() _req?: Request, @Res() _res?: Response) {
     const result = await this.productsService.getProducts();
     console.log(
